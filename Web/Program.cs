@@ -1,11 +1,11 @@
 namespace RayaEstates
 {
-    using Microsoft.AspNetCore.Identity;
+    using Hangfire;
+
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.Extensions.DependencyInjection.Extensions;
     using Microsoft.Extensions.Hosting;
 
     using RayaEstates.Data;
@@ -84,6 +84,14 @@ namespace RayaEstates
                    options.CheckConsentNeeded = context => true;
                    options.MinimumSameSitePolicy = SameSiteMode.None;
                });
+
+            services.AddHangfire(configuration => configuration
+               .SetDataCompatibilityLevel(CompatibilityLevel.Version_180)
+               .UseSimpleAssemblyNameTypeSerializer()
+               .UseRecommendedSerializerSettings(x => x.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore)
+               .UseSqlServerStorage(sqlConnectionString));
+
+            services.AddHangfireServer();
 
             services.AddControllersWithViews(
                 options =>
