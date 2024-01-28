@@ -27,7 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Data\RayaEstates.Data.csproj" />
+    <ProjectReference Include="..\..\Data\RayaEstates.Data.csproj" />
   </ItemGroup>
 
 </Project>

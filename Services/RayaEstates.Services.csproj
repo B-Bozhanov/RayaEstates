@@ -7,10 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Services\" />
     <Folder Include="ServicesMessaging\" />
     <Folder Include="ServicesMapping\" />
-    <Folder Include="ServicesData\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Hangfire.AspNetCore" Version="1.8.9" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\RayaEstates.Common\RayaEstates.Common.csproj" />
+    <ProjectReference Include="..\Web\RayaEstates.Web.ViewModels\RayaEstates.Web.ViewModel.csproj" />
   </ItemGroup>
 
 </Project>

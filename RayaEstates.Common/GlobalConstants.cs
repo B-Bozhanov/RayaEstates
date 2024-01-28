@@ -5,6 +5,11 @@
         public const string SystemName = "RealEstate";
         public const string AdministratorRoleName = "Administrator";
 
+        public static class PropertyConstants
+        {
+            public const int PropertiesPerPage = 12;
+        }
+
         // TODO: Move administrators data to json in data folder
         public static List<Administrator> GetAdministrators()
         {
