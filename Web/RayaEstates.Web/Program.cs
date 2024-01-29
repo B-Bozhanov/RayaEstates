@@ -3,6 +3,7 @@ namespace RayaEstates
     using Hangfire;
 
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Data.SqlClient;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
@@ -66,9 +67,12 @@ namespace RayaEstates
 
         private static void ConfigureServices(IServiceCollection services, IConfiguration configuration)
         {
-            // Add services to the container.
+            var sqlConnectionStringBuilder= new SqlConnectionStringBuilder(configuration.GetSection("ConnectionStrings")["SqlDefoultConnectionString"]);
+            sqlConnectionStringBuilder.Password = configuration.GetSection("AccountInfo")["SqlAdminPassword"];
+            sqlConnectionStringBuilder.UserID = configuration.GetSection("AccountInfo")["SqlAdminUsername"];
+            var sqlConnectionString = sqlConnectionStringBuilder.ConnectionString;
             
-            var sqlConnectionString = configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+            // Add services to the container.
             services.AddDbContext<EstateDbContext>(options 
                 => options.UseSqlServer(sqlConnectionString));
            
